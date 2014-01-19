@@ -133,6 +133,8 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         self.state = SVInfiniteScrollingStateStopped;
         self.enabled = YES;
         
+        self.offsetToTriggerInfiniteScrolling = 0;
+        
         self.viewForState = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", nil];
     }
     
@@ -196,17 +198,20 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         return;
     }
     
-    if(self.state != SVInfiniteScrollingStateLoading && self.enabled) {
-        CGFloat scrollViewContentHeight = self.scrollView.contentSize.height;
-        CGFloat scrollOffsetThreshold = scrollViewContentHeight-self.scrollView.bounds.size.height;
-        
-        if(!self.scrollView.isDragging && self.state == SVInfiniteScrollingStateTriggered)
+    if (self.state != SVInfiniteScrollingStateLoading && self.enabled) {
+        if (self.state == SVInfiniteScrollingStateTriggered)
             self.state = SVInfiniteScrollingStateLoading;
-        else if(contentOffset.y > scrollOffsetThreshold && self.state == SVInfiniteScrollingStateStopped && self.scrollView.isDragging)
+        else if ([self didReachTriggerThreshold] && self.state == SVInfiniteScrollingStateStopped && self.scrollView.isDragging)
             self.state = SVInfiniteScrollingStateTriggered;
-        else if(contentOffset.y < scrollOffsetThreshold  && self.state != SVInfiniteScrollingStateStopped)
+        else if ([self didReachTriggerThreshold]  && self.state != SVInfiniteScrollingStateStopped)
             self.state = SVInfiniteScrollingStateStopped;
     }
+}
+
+- (BOOL)didReachTriggerThreshold {
+    float y = self.scrollView.contentOffset.y + self.scrollView.bounds.size.height - self.scrollView.contentInset.bottom;
+    float h = self.scrollView.contentSize.height;
+    return (y > h - self.offsetToTriggerInfiniteScrolling);
 }
 
 #pragma mark - Getters

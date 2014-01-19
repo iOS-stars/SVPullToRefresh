@@ -33,6 +33,7 @@
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         [weakSelf insertRowAtBottom];
     }];
+    self.tableView.infiniteScrollingView.offsetToTriggerInfiniteScrolling = 100;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
