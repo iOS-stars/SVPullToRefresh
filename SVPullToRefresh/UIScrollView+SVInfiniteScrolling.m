@@ -72,15 +72,12 @@ static char UIScrollViewInfiniteScrollingView;
     
     if (showsInfiniteScrolling == NO) {
         if (self.infiniteScrollingView.isObserving) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Wait for the next run loop just in case someone else is changing the table on this one
-                [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentOffset"];
-                [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentSize"];
-                // If we ever disable inf. scrolling, we can reset the bottom inset here
-                [self.infiniteScrollingView resetScrollViewContentInset];
-                [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentInset"];
-                self.infiniteScrollingView.isObserving = NO;
-            });
+            [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentOffset"];
+            [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentSize"];
+            // If we ever disable inf. scrolling, we can reset the bottom inset here
+            [self.infiniteScrollingView resetScrollViewContentInset];
+            [self removeObserver:self.infiniteScrollingView forKeyPath:@"contentInset"];
+            self.infiniteScrollingView.isObserving = NO;
         }
     } else {
         if (self.infiniteScrollingView.isObserving == NO) {
