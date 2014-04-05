@@ -162,7 +162,7 @@ static char UIScrollViewInfiniteScrollingView;
                           delay:0
                         options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         self.scrollView.contentInset = self.scrollView.scrollIndicatorInsets = contentInset;
+                         self.scrollView.contentInset = contentInset;
                      }
                      completion:NULL];
 }
