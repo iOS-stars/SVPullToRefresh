@@ -441,7 +441,7 @@ static char UIScrollViewPullToRefreshView;
 
 - (UIImageView *)arrow {
     if(!_arrow) {
-		_arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed: @"pull_to_refresh_arrow"]];
+		_arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed: @"Pull To Refresh Arrow"]];
         _arrow.backgroundColor = [UIColor clearColor];
 		[self addSubview:_arrow];
     }
