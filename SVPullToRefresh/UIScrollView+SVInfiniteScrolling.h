@@ -21,12 +21,9 @@
 
 @end
 
-
 enum {
 	SVInfiniteScrollingStateStopped = 0,
-    SVInfiniteScrollingStateTriggered,
-    SVInfiniteScrollingStateLoading,
-    SVInfiniteScrollingStateAll = 10
+    SVInfiniteScrollingStateLoading
 };
 
 typedef NSUInteger SVInfiniteScrollingState;
@@ -37,7 +34,11 @@ typedef NSUInteger SVInfiniteScrollingState;
 @property (nonatomic, readonly) SVInfiniteScrollingState state;
 @property (nonatomic, readwrite) BOOL enabled;
 
-- (void)setCustomView:(UIView *)view forState:(SVInfiniteScrollingState)state;
+/*! 
+ * Allows you to set an offset height to trigger infinite scrolling sooner
+ *\discussion Note: Larger numbers will increase the trigger height up to the top of the scrollview
+ */
+@property (nonatomic, assign) NSUInteger offsetToTriggerInfiniteScrolling;
 
 - (void)startAnimating;
 - (void)stopAnimating;
